@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package media_provider_v1;
+
+option go_package = "api/pkg/gen/media_provider/v1;media_provider_v1";
+
+service MediaProviderService {
+  rpc GetTaskStatus(GetTaskStatusRequest) returns (TaskData);
+  rpc ReportProgress(ReportProgressRequest) returns (ProgressResponse);
+  rpc GetTaskDetails(GetTaskDetailsRequest) returns (TaskDetails);
+  rpc ChangeTaskStatus(ChangeStatusRequest) returns (ChangeStatusResponse);
+  rpc ChangeTaskResultPath(ChangeResultPathRequest) returns (ChangeResultPathResponse);
+}
+
+message ChangeStatusRequest {
+  uint64 task_id = 1;
+  string status = 2;
+}
+
+message ChangeStatusResponse {
+  string message = 1;
+}
+
+message ChangeResultPathRequest {
+  uint64 task_id = 1;
+  string path = 2;
+}
+
+message ChangeResultPathResponse {
+  string message = 1;
+}
+
+message GetTaskStatusRequest {
+  uint64 task_id = 1;
+}
+
+message ReportProgressRequest {
+  uint64 task_id = 1;
+}
+
+message GetTaskDetailsRequest {
+  uint64 task_id = 1;
+}
+
+message TaskData {
+  string status = 1;
+  string link = 2;
+}
+
+message ProgressResponse {
+  int32 percentage = 1;
+}
+
+message TaskDetails {
+  uint64 task_id = 1;
+  string target_format = 2;
+  int32 quality_height = 3;
+}
